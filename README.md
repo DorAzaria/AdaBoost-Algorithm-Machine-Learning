@@ -1,10 +1,6 @@
 # AdaBoost
 
 Python 3.9.4
-<br><b>Authors:</b>
-<br>Dor Azaria 206333452 (implementation, visualization)
-<br>Egor Kononov 342426608 (implementation, visualization)
-<br>We worked on the algorithm together
 
 Boosting is an ensemble technique that attempts to create a strong classifier from a number of weak classifiers.
 <br>AdaBoost also called Adaptive Boosting is a technique in Machine Learning used as an Ensemble Method.
@@ -13,33 +9,6 @@ Boosting is an ensemble technique that attempts to create a strong classifier fr
 * AdaBoost as the first successful boosting algorithm for binary classification problems.
 * Learning the AdaBoost model by weighting training instances and the weak learners themselves.
 * Predicting with AdaBoost by weighting predictions from weak learners.
-
-#### Input
-- Set $S$ of points, $x_i\in S$, with labels $y_i$
-- Number of iterations $k$
-- A set $H$ of $T$ (weak) classifiers, $h_j : S \rightarrow \{ -1,1 \} ^{|S|}$
-
-#### Output 
-- a weight $\alpha _j$ for each classifier $h_j$
-
-#### Final decision function
-- $F(x) = \sum_{t=1}^{T} \alpha _t h_t (x)  $
-- $H(x) = sign[F(x)]$
-
-## Algorithm Steps
-
-1. Initialize point weights $𝐷_1 (𝑥_𝑖 )= \frac{1}{n}$
-2. For iteration $t=1,…,k$
-3.    Compute weighted error for each $h \in H$: <br>
-		$𝜖_𝑡 (ℎ)= \sum_{i=1}^{n} 𝐷_t (𝑥_𝑖 ) \{ h(x_i ) \ne y_i \} $
-4.    Select classifier with min weighted error <br>
-		$ℎ_𝑡 =𝑎𝑟𝑔𝑚𝑖𝑛_ℎ  𝜖_𝑡 (ℎ)$
-5.    Set classifier weight 𝛼_𝑡 based on its error <br>
-		$𝛼_𝑡 = \frac{1}{2} \ln⁡{ \frac{1−𝜖_𝑡 (ℎ_𝑡)}{𝜖_𝑡 (ℎ_𝑡)}}$
-6.    Update point weights <br>
-		 $𝐷_{𝑡+1} (𝑥_𝑖 ) = \frac{1}{𝑍_𝑡} 𝐷_𝑡(𝑥_𝑖 ) 𝑒^{−\alpha _𝑡 ℎ_𝑡 (𝑥_𝑖 ) 𝑦_𝑖 }$ <br>
-         where $Z_t$ is a normalizing constant giving $\sum_{i} 𝐷_{𝑡+1} (𝑥_𝑖 ) =1$
-
 
 ```python
 from pandas.plotting import radviz
@@ -51,8 +20,6 @@ import pandas as pd
 data_frame = pd.read_table("rectangle.txt",header=None, index_col=False, names=['x', 'y', 'label'], delimiter=r"\s+")
 ```
 
-By functional definition we know: $h_j : S \rightarrow \{ -1,1 \} ^{|S|}$
-<br> As for each given point we need to know if it's misclassified
 
 
 ```python
@@ -128,11 +95,6 @@ def generate_directed_line(point1, point2, direction):
         b = point1[1] - m*point1[0]
         return LinearRule(m, b, 0, direction)
 ```
-
-* points_weights theoretically initialized as $𝐷_1 (𝑥_𝑖 )= \frac{1}{n}$
-* getSign method theoretically mentioned as $H(x) = sign[F(x)]$
-* updateWeights method theoretically mentioned as $𝐷_{𝑡+1} (𝑥_𝑖 ) = \frac{1}{𝑍_𝑡} 𝐷_𝑡(𝑥_𝑖 ) 𝑒^{−\alpha _𝑡 ℎ_𝑡 (𝑥_𝑖 ) 𝑦_𝑖 }$
-* getBestRules method theoretically mentioned as $𝛼_𝑡 = \frac{1}{2} \ln⁡{ \frac{1−𝜖_𝑡 (ℎ_𝑡)}{𝜖_𝑡 (ℎ_𝑡)}}$ and $ℎ_𝑡 =𝑎𝑟𝑔𝑚𝑖𝑛_ℎ  𝜖_𝑡 (ℎ)$
 
 
 ```python
